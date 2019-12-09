@@ -2,46 +2,30 @@ import java.util.*;
 
 String s = "3,8,1001,8,10,8,105,1,0,0,21,38,59,84,97,110,191,272,353,434,99999,3,9,1002,9,2,9,101,4,9,9,1002,9,2,9,4,9,99,3,9,102,5,9,9,1001,9,3,9,1002,9,5,9,101,5,9,9,4,9,99,3,9,102,5,9,9,101,5,9,9,1002,9,3,9,101,2,9,9,1002,9,4,9,4,9,99,3,9,101,3,9,9,1002,9,3,9,4,9,99,3,9,102,5,9,9,1001,9,3,9,4,9,99,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,99,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,99";
 int[][] perm;
-String inputs1 = "01234";
-String inputs2 = "56789";
+String inputs[] = {"01234", "56789"};
 
 void setup() {
-  perm = generatePerms(inputs1);
-  int max = 0;
-  for (int p=0; p<perm.length; p++) {
-    long wire=0;
-    VM[] modules = new VM[5];
-    for (int i=0; i<modules.length; i++) {
-      modules[i] = new VM(s);
-      modules[i].run();
-      modules[i].input(perm[p][i]);
-      modules[i].input(wire);
-      wire = modules[i].getOutput();
+  for (int t=0; t<2; t++) {
+    int max = 0;
+    perm = generatePerms(inputs[t]);
+    for (int p=0; p<perm.length; p++) {
+      long wire=0;
+      VM[] modules = new VM[5];
+      for (int i=0; i<modules.length; i++) {
+        modules[i] = new VM(s);
+        modules[i].run();
+        modules[i].input(perm[p][i]);
+      }
+      int i = 0;
+      while (!modules[4].halted) {
+        modules[i].input(wire);
+        wire = modules[i].getOutput();
+        i=(i+1)%5;
+      }
+      max = max(max, (int)wire);
     }
-    max = max(max,(int)wire);
+    println("Task "+(t+1)+": "+max);
   }
-  println("Task 1: "+max);
-  
-  
-  max = 0;
-  perm = generatePerms(inputs2);
-  for (int p=0; p<perm.length; p++) {
-    long wire=0;
-    VM[] modules = new VM[5];
-    for(int i=0;i<modules.length;i++) {
-      modules[i] = new VM(s);
-      modules[i].run();
-      modules[i].input(perm[p][i]);
-    }
-    int i = 0;
-    while(!modules[4].halted) {
-      modules[i].input(wire);
-      wire = modules[i].getOutput();
-      i=(i+1)%5;
-    }
-    max = max(max,(int)wire);
-  }
-  println("Task 2: "+max);
 }
 
 int[][] generatePerms(String s) {
