@@ -4,78 +4,73 @@ String in = "3,8,1005,8,319,1106,0,11,0,0,0,104,1,104,0,3,8,102,-1,8,10,1001,10,
 String[] l = in.split(",");
 int[] list = new int[l.length];
 
-PVector pos = new PVector(200,200);
+int len = 400;
+
+PVector pos = new PVector(len/2,len/2);
 PVector dir = new PVector(0,1);
-int[][] ship = new int [400][400];
+Map<String, Integer> shipp = new HashMap<String, Integer>();
 
 void setup() {
-  size(400,400);
+  size(300,300);
   background(0);
-  for(int i=0;i<ship.length;i++) {
-    for(int j=0;j<ship[i].length;j++) {
-      ship[i][j] = -1;
-    }
-  }
-  
+
   VM brain = new VM(in);
   brain.run();
-  
+
   while(!brain.halted) {
-    brain.input(ship(pos.x,pos.y));
+    brain.input(getship(pos.x,pos.y));
     long c = brain.getOutput();
     long d = brain.getOutput();
-    ship[(int)pos.x][(int)pos.y] = (int)c;
+    setship(pos.x,pos.y,(int)c);
     dir.rotate((d==0)?PI/2.0:-PI/2.0);
     pos = pos.add(dir);
   }
-  
+
   int counter = 0;
-  for(int i=0;i<ship.length;i++) {
-    for(int j=0;j<ship[i].length;j++) {
-      if(ship[i][j] != -1) {
-        counter++;
-      }
+  for(String s: shipp.keySet()) {
+    if(shipp.get(s)!=-1) {
+      counter ++;
     }
   }
-  println(counter);
-  
-  for(int i=0;i<ship.length;i++) {
-    for(int j=0;j<ship[i].length;j++) {
-      ship[i][j] = -1;
-    }
-  }
-  ship[(int)pos.x][(int)pos.y]=1 ;
-  
+  println("Task 1: "+counter);
+
+  pos = new PVector(len/2,len/2);
+  dir = new PVector(0,1);
+  shipp.clear();
+  setship(pos.x,pos.y,1);
+
   brain = new VM(in);
   brain.run();
   
   while(!brain.halted) {
-    brain.input(ship(pos.x,pos.y));
+    brain.input(getship(pos.x,pos.y));
     long c = brain.getOutput();
     long d = brain.getOutput();
-    ship[(int)pos.x][(int)pos.y] = (int)c;
+    setship((int)pos.x,(int)pos.y,(int)c);
     dir.rotate((d==0)?PI/2.0:-PI/2.0);
     pos = pos.add(dir);
   }
-  for(int i=0;i<ship.length;i++) {
-    for(int j=0;j<ship[i].length;j++) {
-      if(ship[j][i] == 1) {
-        set(ship.length-i,ship[i].length-j,color(255));
+
+  for(int i=0;i<len;i++) {
+    for(int j=0;j<len;j++) {
+      if(getship(i,j) == 1) {
+        set(i,len-j,color(255));
       }
     }
   }
 }
 
-
-int ship(float x, float y) {
-  int m = ship[(int)x][(int)y];
-  if(m==-1) {
-    return 0;
-  }
-  return m;
+void setship(float x, float y, int v) {
+  shipp.put(((int)x)+","+((int)y),v);
 }
 
-
+int getship(float x, float y) {
+  try {
+    return shipp.get(((int)x)+","+((int)y));
+  } catch (Exception e) {
+    return 0;
+  }
+}
 
 class VM {
   private boolean halted = false;
