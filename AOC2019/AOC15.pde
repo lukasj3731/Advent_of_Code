@@ -21,18 +21,8 @@ void setup() {
   for (int i=0; i<100; i++) {
     Arrays.fill(map[i], -1);
   }
-  for (int i = 0; i<1000000; i++) {
-
-    int dir = genDir();
-    int res = (int)droid.getResp(dir);
-    map[(int)(start.y+direc[dir].y)][(int)(start.x+direc[dir].x)] = res;
-    if (res != 0) {
-      start = start.add(direc[dir]);
-    }
-    if (res == 2 && goal == null) {
-      goal = new PVector((int)start.x, (int)start.y);
-    }
-  }
+  search();
+  
   start = new PVector(50, 50);
   int[][] dis = new int[100][100];
   for (int i=0; i<100; i++) {
@@ -59,13 +49,31 @@ void setup() {
   println("Task 2: "+task2);
 }
 
-int genDir() {  //curious idiot strategy
-  for(int i=1;i<4;i++) {
-    if(map[(int)(start.y+direc[i].y)][(int)(start.x+direc[i].x)] == -1) {
-      return i;
+void search() {
+  for(int dir=1;dir<=4;dir++) {
+    if(map[(int)(start.y+direc[dir].y)][(int)(start.x+direc[dir].x)]==-1) {
+      int res = (int)droid.getResp(dir);
+      map[(int)(start.y+direc[dir].y)][(int)(start.x+direc[dir].x)] = res;
+      if (res == 2 && goal == null) {
+        goal = new PVector((int)start.x+direc[dir].x, (int)start.y+direc[dir].y);
+      }
+      if (res != 0) {
+        start = start.add(direc[dir]);
+        search();
+        droid.getResp(rev(dir));
+        start.add(direc[rev(dir)]);
+      }
     }
   }
-  return 1+(int)random(0, 4);
+}
+
+int rev(int d) {
+  switch(d) {
+    case 1: return 2;
+    case 2: return 1;
+    case 3: return 4;
+    default: return 3;
+  }
 }
 
 class VM {
