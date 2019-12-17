@@ -32,9 +32,7 @@ class VM {
 
   void input(long i) {
     input.add(i);
-    if (!running) {
-      run();
-    }
+    run();
   }
 
   long getOutput() {

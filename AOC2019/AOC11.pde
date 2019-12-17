@@ -23,6 +23,8 @@ void setup() {
     long d = brain.getOutput();
     setship(pos.x,pos.y,(int)c);
     dir.rotate((d==0)?PI/2.0:-PI/2.0);
+    dir.x = (int)dir.x;
+    dir.y = (int)dir.y;
     pos = pos.add(dir);
   }
 

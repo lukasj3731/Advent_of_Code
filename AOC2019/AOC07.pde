@@ -79,9 +79,7 @@ class VM {
 
   void input(long i) {
     input.add(i);
-    if (!running) {
-      run();
-    }
+    run();
   }
 
   long getOutput() {
@@ -94,7 +92,7 @@ class VM {
   }
 
   long getLastoutput() {
-    while (hasOutput()) {
+    while (output.size()>1) {
       output.remove();
     }
     return getOutput();
