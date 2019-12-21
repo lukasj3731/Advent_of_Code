@@ -25,9 +25,11 @@ void setup() {
           if (map[i+dx[d]][j+dy[d]].charAt(0) >= 'A' && map[i+dx[d]][j+dy[d]].charAt(0) <= 'Z') {
             for (int d2=0; d2<4; d2++) {
               if (map[i+dx[d2]][j+dy[d2]].charAt(0) == '.') {
-                char[] chars = (""+map[i][j]+map[i+dx[d]][j+dy[d]]).toCharArray();
-                Arrays.sort(chars);
-                map[i][j] = new String(chars);
+                if(d==0 || d==2) {
+                  map[i][j] = ""+map[i+dx[d]][j+dy[d]]+map[i][j];
+                } else {
+                  map[i][j] = ""+map[i][j]+map[i+dx[d]][j+dy[d]];
+                }
                 map[i+dx[d]][j+dy[d]] = " ";
               }
             }
@@ -44,8 +46,6 @@ void setup() {
   task = 2;
   println("Task 2: "+getDist(start, end));
 }
-
-
 
 int getDist(Point start, Point end) {
   boolean[][][] visited = new boolean[map.length][map[0].length][DEPTH];
@@ -127,7 +127,6 @@ ArrayList<Point> getPositions(String in) {
       }
     }
   }
-
   return ret;
 }
 
@@ -135,17 +134,10 @@ class Point {
   int x; 
   int y; 
   int d = 0;
-  char val = '_';
 
   public Point(int x, int y) { 
     this.x = x; 
     this.y = y;
-  }
-
-  public Point(int x, int y, char val) { 
-    this.x = x; 
-    this.y = y;
-    this.val = val;
   }
 
   public Point(int x, int y, int d) { 
@@ -155,7 +147,7 @@ class Point {
   }
 
   String toString() {
-    return "["+x+","+y+","+d+"]"+((val == '_')?"":""+val);
+    return "["+x+","+y+","+d+"]";
   }
 
   boolean equals(Object o) {
@@ -166,8 +158,8 @@ class Point {
 
 class queueNode 
 { 
-  Point pt; // The cordinates of a cell 
-  int dist; // cell's distance of from the source 
+  Point pt;
+  int dist;
   int portals = 0;
 
   public queueNode(Point pt, int dist, int portals) 
