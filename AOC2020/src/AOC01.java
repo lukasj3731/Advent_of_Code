@@ -9,7 +9,7 @@ public class AOC01 extends AOC{
 		for(int i=0;i<exp.length;i++) {
 			for(int j=i+1;j<exp.length;j++) {
 				if(exp[i]+exp[j]==2020)  {				//if sum to 2020, print product
-					println("task 1: "+(exp[i]*exp[j]));
+					println("Task 1: "+(exp[i]*exp[j]));
 					return;
 				}
 			}
@@ -22,7 +22,7 @@ public class AOC01 extends AOC{
 			for(int j=i+1;j<exp.length;j++) {
 				for(int k=j+1;k<exp.length;k++){
 					if(exp[i]+exp[j]+exp[k]==2020)  {	//if sum to 2020, print product
-						println("task 2: "+(exp[i]*exp[j]*exp[k]));
+						println("Task 2: "+(exp[i]*exp[j]*exp[k]));
 						return;
 					}
 				}

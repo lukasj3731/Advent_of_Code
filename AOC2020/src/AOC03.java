@@ -5,7 +5,7 @@ public class AOC03 extends AOC{
 	}
 
 	static void task1() {
-		println("task 1: "+hitTrees(new Point(1,3), charArrInput("inputs/input03.txt")));
+		println("Task 1: "+hitTrees(new Point(1,3), charArrInput("inputs/input03.txt")));
 	}
 
 	static void task2() {
@@ -14,7 +14,7 @@ public class AOC03 extends AOC{
 		long prod = 1;
 		for(Point s:slopes)
 			prod *= hitTrees(s,map);
-		println("task 2: "+prod);
+		println("Task 2: "+prod);
 	}
 	
 	static int hitTrees(Point slope, char[][] map) {
