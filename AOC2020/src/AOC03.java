@@ -17,7 +17,7 @@ public class AOC03 extends AOC{
 		println("Task 2: "+prod);
 	}
 	
-	static int hitTrees(Point slope, char[][] map) {
+	static int hitTrees(Point slope, char[][] map) {	//number of trees hit at certain slope
 		Point pos = new Point(0,0,0,0,"");	//x,y,z,val,name (z and name are irrelevant for this)
 		while(pos.x < map.length) {
 			pos.val += map[pos.x][pos.y%map[0].length]=='#'?1:0;
