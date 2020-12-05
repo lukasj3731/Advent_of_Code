@@ -129,6 +129,13 @@ public class AOC {		//helpful methods to save some typing
 		return Long.parseLong(in);
 	}
 	
+	static int binaryFromString(String in, char one) {	//turns a string of symbols into binary, where <one> indicates a 1 and any other symbol a 0
+		int number=0;
+		for(int i=0;i<in.length();i++)
+			number=2*number+(in.charAt(i)==one?1:0);
+		return number;
+	}
+	
 	static class Point{
 		int x=0;
 		int y=0;
