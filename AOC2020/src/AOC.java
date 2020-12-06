@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class AOC {		//helpful methods to save some typing
 
 	public static void main(String[] args){
+		long start = System.currentTimeMillis();
 		for(int i=1;i<=25;i++) 
 			try{
 				println("AOC"+String.format("%02d", i)+":");
@@ -15,6 +16,7 @@ public class AOC {		//helpful methods to save some typing
 				Class.forName("AOC"+String.format("%02d", i)).getDeclaredMethod("task2").invoke(null, (Object[]) null);
 				println("");
 			} catch (Exception e) {} //it's fine, the event is not done yet
+		println("Execution took "+(System.currentTimeMillis()-start)/1000.0+" seconds");
 	}
 	
 	public static String StrInput(String path) {
