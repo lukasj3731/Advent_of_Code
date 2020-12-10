@@ -8,10 +8,18 @@ public class AOC06 extends AOC{	//wanted to see if i can do today in one-liners
 	}
 	
 	static void task1() {
-		println("Task 1: "+Arrays.stream(StrInput("inputs/input06.txt").split("\n\n")).mapToLong( /*for every group*/ (answers -> (Arrays.stream(answers.replaceAll("\n","").split("")).distinct().count()))).sum());	//count distinct answers and sum
+		println("Task 1: " + Arrays.stream(StrInput("inputs/input06.txt").split("\n\n"))
+				.mapToLong((answers -> (Arrays.stream(answers.replaceAll("\n", "").split(""))
+						.distinct().count()))) //for every group count distinct answers and sum
+				.sum());
 	}
 	
 	static void task2() {
-		println("Task 2: "+Arrays.stream(StrInput("inputs/input06.txt").split("\n\n")).mapToLong( /*for every group*/ answers -> IntStream.range((int)'a',((int)'z')+1).map( /*for every char*/ c -> (Arrays.stream(answers.split("\n"))).mapToInt(s -> s.contains(""+(char)c)?1:0).sum()).map( /*sum occurence of char*/ i -> (i==answers.split("\n").length?1:0)).sum()).sum());	//and save 1 if every person answered, then sum it all up
+		println("Task 2: " + Arrays.stream(StrInput("inputs/input06.txt").split("\n\n"))
+				.mapToLong( answers -> IntStream.range((int) 'a', ((int) 'z') + 1)	//for every char in every group
+						.map( c -> (Arrays.stream(answers.split("\n")))
+								.mapToInt(s -> s.contains("" + (char) c) ? 1 : 0).sum())
+						.map( i -> (i == answers.split("\n").length ? 1 : 0)).sum())	//sum occurrence of char
+				.sum()); // and save 1 if every person answered, then sum it all up
 	}
 }
