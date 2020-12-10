@@ -25,9 +25,8 @@ public class AOC10 extends AOC{
 		l.sort(null);
 		l.add(l.get(l.size()-1)+3);
 		Map<Integer, Long> m = new HashMap<Integer, Long>();
-		m.put(l.get(l.size()-1), 1l);
-		for(int i=l.size()-2;i>=0;i--) {	//moving backwards through list
-			long total = 0;
+		for(int i=l.size()-1;i>=0;i--) {	//moving backwards through list
+			long total = i==l.size()-1?1:0;	//biggest element starts with 1, others with 0
 			for(int j=1;j<=3;j++)	//for every possible adapter
 				total += (m.containsKey(l.get(i)+j))?m.get(l.get(i)+j):0;	//add possibilities to total
 			m.put(l.get(i), total);	//add total to map
