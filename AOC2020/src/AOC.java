@@ -2,8 +2,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class AOC {		//helpful methods to save some typing
 
@@ -78,6 +80,10 @@ public class AOC {		//helpful methods to save some typing
 			for(int j=0;j<in[i].length();j++)
 				map[i][j] = in[i].charAt(j);
 		return map;
+	}
+	
+	static List<Integer> intListInput(String path) {
+		return Arrays.stream(intArrInput(path)).boxed().collect(Collectors.toList());
 	}
 
 	static int gcd(int a, int b) {
