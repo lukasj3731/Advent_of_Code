@@ -11,7 +11,7 @@ public class AOC12 extends AOC{
 			char dir = s.charAt(0);
 			int val = pInt(s.substring(1));
 			if("RL".contains(""+dir)) 
-				dirTotal = "NESW".charAt(("NESW".indexOf(dirTotal)+(dir=='R'?1:-1)*val/90+4)%4);	//if operation is L or R, rotate accordingly
+				dirTotal = "NESW".charAt(("NESW".indexOf(dirTotal)+(dir=='R'?val:-val)/90+4)%4);	//if operation is L or R, rotate accordingly
 			else 
 				NESW["NESW".indexOf(dir=='F'?dirTotal:dir)] += val;	//otherwise, move ship accordingly
 		}
@@ -28,10 +28,7 @@ public class AOC12 extends AOC{
 			case 'E': waypoint.y += val; break;
 			case 'S': waypoint.x -= val; break;
 			case 'W': waypoint.y -= val; break;
-			case 'F': 
-				for(int i=0;i<val;i++)
-					shipPos.add(waypoint);
-				break;
+			case 'F': shipPos = shipPos.add(waypoint.scale(val)); break;
 			default: 
 				for(int i=0;i<val/90;i++)
 					waypoint.x = (dir=='L'?1:-1)*(waypoint.y-waypoint.x)-(waypoint.y=waypoint.x*(dir=='L'?-1:1)); //waypoint-rotate-one-liner (don't even ask)

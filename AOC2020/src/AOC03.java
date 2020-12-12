@@ -21,7 +21,7 @@ public class AOC03 extends AOC{
 		Point pos = new Point(0,0,0,0,"");	//x,y,z,val,name (z and name are irrelevant for this)
 		while(pos.x < map.length) {
 			pos.val += map[pos.x][pos.y%map[0].length]=='#'?1:0;
-			pos.add(slope);
+			pos = pos.add(slope);
 		}
 		return pos.val;
 	}	

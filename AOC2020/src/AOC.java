@@ -179,10 +179,12 @@ public class AOC {		//helpful methods to save some typing
 			
 		}
 		
-		public void add(Point p) {
-			this.x += p.x;
-			this.y += p.y;
-			this.z += p.z;
+		public Point add(Point p) {
+			return new Point(this.x + p.x,this.y + p.y,this.z + p.z, this.val + p.val, this.name +"|"+p.name);
+		}
+		
+		public Point scale(int s) {
+			return new Point(this.x*s,this.y*s,this.z*s, this.val, this.name);
 		}
 	}
 	
