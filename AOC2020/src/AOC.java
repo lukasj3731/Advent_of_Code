@@ -152,6 +152,23 @@ public class AOC {		//helpful methods to save some typing
 		return true;
 	}
 	
+	static long chineseRemainder(int[] num, int[] rem) {		//chinese remainder algo
+		long product = 1, sum = 0;
+		for (int i = 0; i < num.length; i++)
+			product *= num[i];
+		for (int i = 0; i < num.length; i++)
+			sum += (product/num[i] * modInv(product/num[i],num[i]) * rem[i]);
+		return sum%product;
+	}
+	
+	static long modInv(long a, long m) {	//modular multiplicative inverse
+		a = a % m; 
+        for (int x = 1; x < m; x++) 
+            if ((a * x) % m == 1) 
+                return x; 
+        return 1; 
+	}
+	
 	static class Point{
 		int x=0;
 		int y=0;
