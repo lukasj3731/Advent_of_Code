@@ -1,95 +1,53 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class AOC14 extends AOC{
+public class AOC14 extends AOC {
 	public static void main(String[] args) {
 		task1();
 		task2();
 	}
-	
+
 	static void task1() {
-		String[] in = StringArrInput("inputs/input14.txt");
-		String mask = "";
-		Map<Integer,Long> m = new HashMap<Integer, Long>();
-		for(String s:in) {
-			if(s.contains("mask")) {
-				mask = s.substring(7);
-			} else {
-				int addr = pInt(regexFinder("mem\\[([0-9]*)\\].*", s));
-				int val = pInt(regexFinder(".* ([0-9]*)",s));
-				m.put(addr, mask(val,mask));
-			}
-		}
-		long sum = 0;
-		for(int k:m.keySet()) {
-			sum += m.get(k);
-		}
-		println("Task 1: "+sum);
+		task(false);
 	}
 
 	static void task2() {
-		String[] in = StringArrInput("inputs/input14.txt");
+		task(true);
+	}
+
+	static void task(boolean t2) {
 		String mask = "";
-		Map<Long,Long> m = new HashMap<Long, Long>();
-		for(String s:in) {
-			if(s.contains("mask")) {
-				mask = s.substring(7);
+		Map<Long, Long> m = new HashMap<Long, Long>();	//map for [memory address -> value]
+		for (String s : StringArrInput("inputs/input14.txt"))
+			if (s.contains("mask")) {
+				mask = s.substring("mask = ".length());	//update mask
 			} else {
-				int addr = pInt(regexFinder("mem\\[([0-9]*)\\].*", s));
-				int val = pInt(regexFinder(".* ([0-9]*)",s));
-				recWrite(mask2(addr,mask),val,m);
+				long addr = pInt(regexFinder("mem\\[([0-9]*)\\].*", s));	//read address
+				long val = pInt(regexFinder(".* ([0-9]*)", s));		//read value
+				if (t2)
+					recWrite(mask(addr, mask, t2), val, m);		//task 2: recursive-write value to masked addresses
+				else
+					m.put(addr, binaryFromStringLong(mask(val, mask, t2), '1'));	//task 1: write masked value to address
 			}
-		}
 		long sum = 0;
-		for(Long k:m.keySet()) {
-			sum += m.get(k);
-		}
-		println("Task 1: "+sum);
+		for (long k : m.values())	//sum all values in map
+			sum += k;
+		println("Task " + (t2 ? 2 : 1) + ": " + sum);
 	}
-	
-	static long mask(int num, String mask) {
-		String binary = Integer.toBinaryString(num);
-		binary = String.format("%36s",binary);
-		binary = binary.replace(' ','0');
-		String ret = "";
-		for(int i=0;i<binary.length();i++) {
-			if(mask.charAt(i)=='X') {
-				ret += binary.charAt(i);
-			} else {
-				ret += mask.charAt(i);
-			}
-		}
-		return binaryFromStringLong(ret, '1');
-	}
-	
-	static String mask2(int num, String mask) {
-		String binary = Integer.toBinaryString(num);
-		binary = String.format("%36s",binary);
-		binary = binary.replace(' ','0');
-		String ret = "";
-		for(int i=0;i<binary.length();i++) {
-			if(mask.charAt(i)=='0') {
-				ret += binary.charAt(i);
-			} else {
-				ret +=  mask.charAt(i);
-			}
-		}
+
+	static String mask(long num, String mask, boolean t2) {
+		String ret = "", binary = String.format("%36s", Long.toBinaryString(num)).replace(' ', '0'); //turns number into binary with leading zeros
+		for (int i = 0; i < binary.length(); i++)
+			ret += (mask.charAt(i) == (t2 ? '0' : 'X') ? binary : mask).charAt(i); //when doing task1/task2 we're reading from binary when seeing a X/0
 		return ret;
 	}
-	
-	static void recWrite(String addr, long val, Map<Long, Long> m) {
-		if(!addr.contains("X")) {
-			m.put(binaryFromStringLong(addr, '1'), val);
+
+	static void recWrite(String addr, long val, Map<Long, Long> m) {	//recursively writes to not taken memory addresses
+		if (!addr.contains("X")) {
+			m.put(binaryFromStringLong(addr, '1'), val);	//if address is unambiguous, write to map
 		} else {
-			recWrite(addr.replaceFirst("X", "1"),val,m);
-			recWrite(addr.replaceFirst("X", "0"),val,m);
+			recWrite(addr.replaceFirst("X", "1"), val, m);	//else replace first amiguous 'X' and then try again
+			recWrite(addr.replaceFirst("X", "0"), val, m);
 		}
-	}
-	
-	static long binaryFromStringLong(String in, char one) {	//turns a string of symbols into binary, where <one> indicates a 1 and any other symbol a 0
-		long number=0;
-		for(int i=0;i<in.length();i++)
-			number=2*number+(in.charAt(i)==one?1:0);
-		return number;
 	}
 }

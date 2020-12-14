@@ -144,6 +144,13 @@ public class AOC {		//helpful methods to save some typing
 		return number;
 	}
 	
+	static long binaryFromStringLong(String in, char one) {	//turns a string of symbols into binary, where <one> indicates a 1 and any other symbol a 0
+		long number=0;
+		for(int i=0;i<in.length();i++)
+			number=2*number+(in.charAt(i)==one?1:0);
+		return number;
+	}
+	
 	static boolean equal(char[][] a, char[][] b) {	//returns if 2 char arrays of same size are equal
 		for(int i=0;i<a.length;i++)
 			for(int j=0;j<a[i].length;j++)
