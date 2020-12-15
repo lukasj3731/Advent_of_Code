@@ -9,49 +9,23 @@ public class AOC15 extends AOC {
 	}
 	
 	static void task1() {
-		int[] in = Arrays.stream(StrInput("inputs/input15.txt").split(",")).mapToInt(Integer::parseInt).toArray();
-		Map<Integer, Integer> m = new HashMap<Integer, Integer>();
-		for(int i=0;i<in.length-1;i++) {
-			m.put(in[i], i+1);
-		}
-		int nextNum=in[in.length-1];
-		
-		for(int i=in.length;i<2020;i++) {
-			
-			if(!m.containsKey(nextNum)) {
-				int tmp = nextNum;
-				nextNum = 0;
-				m.put(tmp, i);
-			} else {
-				int tmp = nextNum;
-				nextNum = (i)-m.get(nextNum);
-				m.put(tmp, i);
-			}
-		}
-		
-		println("Task 1: "+nextNum);
+		task(2020,1);
 	}
 	
 	static void task2() {
-		int[] in = Arrays.stream(StrInput("inputs/input15.txt").split(",")).mapToInt(Integer::parseInt).toArray();
-		Map<Integer, Integer> m = new HashMap<Integer, Integer>();
-		for(int i=0;i<in.length-1;i++) {
+		task(30000000,2);
+	}
+	
+	static void task(int limit, int taskNum) {
+		int[] in = Arrays.stream(StrInput("inputs/input15.txt").split(",")).mapToInt(Integer::parseInt).toArray();	//input to int array
+		Map<Integer, Integer> m = new HashMap<Integer, Integer>();	//map containing [number -> last occurrence]
+		for(int i=0;i<in.length-1;i++)	//put starting numers into map
 			m.put(in[i], i+1);
+		int nextNum=in[in.length-1], currNum;	//put last starting number into variable
+		for(int i=in.length;i<limit;i++) {	//play game till limit is reached
+				nextNum = i-m.getOrDefault(currNum = nextNum, i);	//if value has occurred before -> (i-last occurence), else -> 0
+				m.put(currNum, i);	//save occurence of current number
 		}
-		int nextNum=in[in.length-1];
-		
-		for(int i=in.length;i<30000000;i++) {
-			if(!m.containsKey(nextNum)) {
-				int tmp = nextNum;
-				nextNum = 0;
-				m.put(tmp, i);
-			} else {
-				int tmp = nextNum;
-				nextNum = (i)-m.get(nextNum);
-				m.put(tmp, i);
-			}
-		}
-		
-		println("Task 1: "+nextNum);
+		println("Task "+taskNum+": "+nextNum);	//print nexxtNum after all iterations are done
 	}
 }
