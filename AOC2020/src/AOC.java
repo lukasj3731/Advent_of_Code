@@ -48,6 +48,12 @@ public class AOC {		//helpful methods to save some typing
 		new String(arr).chars().mapToObj(i->(char)i).forEach((el)->System.out.print(el));
 		System.out.println("");
 	}
+	
+	static void println(String[] arr) {
+		for(String s:arr){
+			println(s);
+		}
+	}
 
 	static void println(Object o) {
 		System.out.println(o);
@@ -209,6 +215,10 @@ public class AOC {		//helpful methods to save some typing
 		
 		public Point scale(int s) {
 			return new Point(this.x*s,this.y*s,this.z*s, this.val, this.name);
+		}
+		
+		public String toString() {
+			return "["+x+","+y+","+z+"]";
 		}
 	}
 	
