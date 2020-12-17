@@ -222,36 +222,33 @@ public class AOC {		//helpful methods to save some typing
 		}
 	}
 	
-	static class PointLong {
-		long x=0;
-		long y=0;
-		long z=0;
-		long val=0;
-		String name = "";
+	static class Point4D {
+		int x=0;
+		int y=0;
+		int z=0;
+		int t=0;
 		
-		public PointLong(long x, long y) {
-			this.x = x;
-			this.y = y;
-		}
-		
-		public PointLong(long x, long y, long z) {
+		public Point4D(int x, int y, int z, int t) {
 			this.x = x;
 			this.y = y;
 			this.z = z;
+			this.t = t;
 		}
 		
-		public PointLong(long x, long y, long z, long val, String name) {
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.val = val;
-			this.name = name;
+		public Point4D add(Point4D p) {
+			return new Point4D(this.x+p.x,this.y+p.y,this.z+p.z,this.t+p.t);
 		}
 		
-		public void add(PointLong p) {
-			this.x += p.x;
-			this.y += p.y;
-			this.z += p.z;
+		public boolean equals(Object o) {
+			Point4D p = (Point4D) o;
+			return this.x == p.x
+			&& this.y == p.y
+			&& this.z == p.z
+			&& this.t == p.t;
+		}
+		
+		public int hashCode() {
+			return (x+","+y+","+z+","+t).hashCode();
 		}
 	}
 }
