@@ -34,7 +34,7 @@ public class AOC18 extends AOC {
 			return ""+prod;
 		} else {	//for task 1:
 			String[] operators = s.split(" ");
-			long total = pLong(operators[0]);	//takefirst number
+			long total = pLong(operators[0]);	//take first number
 			for(int i=1;i<operators.length;i+=2)	//for every other number
 				total = operators[i].contains("+")?	//if operator is plus, add otherwise multiply
 						total + pLong(operators[i+1]):total * pLong(operators[i+1]);
