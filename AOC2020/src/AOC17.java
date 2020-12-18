@@ -43,7 +43,7 @@ public class AOC17 extends AOC {
 		ret.putAll(m);
 		for (Point4D p : ret.keySet())
 			for (Point4D d : directions)
-				m.putIfAbsent(p.add(d), '.');	//add all possibly reachale points to m
+				m.putIfAbsent(p.add(d), '.');	//add all possibly reachable points to m
 		ret.clear();
 		for (Point4D p : m.keySet()) {	//for every point
 			int sum = 0;
