@@ -1,10 +1,10 @@
 public class AOC16 extends AOC {
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 	
-	static void task1() {
+	static int task1() {
 		String in = StrInput("inputs/input16.txt");
 		String[] conditions = in.split("\n\n")[0].split("\n");
 		Condition[] c = new Condition[conditions.length];
@@ -21,10 +21,10 @@ public class AOC16 extends AOC {
 				sum += matchesAny?0:pInt(s);	//and add that numbber to the sum
 			}
 		}
-		println("Task 1: "+sum);
+		return sum;
 	}
 	
-	static void task2() {
+	static long task2() {
 		String in = StrInput("inputs/input16.txt");
 		String[] conditions = in.split("\n\n")[0].split("\n");
 		Condition[] c = new Condition[conditions.length];
@@ -66,7 +66,7 @@ public class AOC16 extends AOC {
 		long prod = 1;
 		for(int i=0;i<possible.length;i++)	//multiply product together
 				prod *= possible[i].contains("departure")?pInt(in.split("\n\n")[1].split("\n")[1].split(",")[i]):1;
-		println("Task 2: "+prod);
+		return prod;
 	}
 	
 	static class Condition {	//takes a line and turns it into condition with the bounds and the fields name

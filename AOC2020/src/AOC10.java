@@ -4,11 +4,11 @@ import java.util.Map;
 
 public class AOC10 extends AOC{
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 
-	static void task1() {
+	static int task1() {
 		List<Integer> l = intListInput("inputs/input10.txt");
 		l.add(0);
 		l.sort(null);
@@ -16,10 +16,10 @@ public class AOC10 extends AOC{
 		for(int i=0;i<l.size()-1;i++)
 			for(int d=0;d<=1;d++)
 				diffs[d] += (l.get(i+1)-l.get(i)==1+2*d)?1:0;	//if diff 1 or 3 is valid, add to diffs
-		println("Task 1: "+(diffs[0]*diffs[1]));
+		return diffs[0]*diffs[1];
 	}
 
-	static void task2() {		//got a complaint my code isn't very understandable. daniel, this excessive commenting is your fault
+	static long task2() {		//got a complaint my code isn't very understandable. daniel, this excessive commenting is your fault
 		List<Integer> l = intListInput("inputs/input10.txt");	//reading the input file into a list called l
 		l.add(0);	//adding 0 to this list. this element is equivalent to the wall outlet
 		l.sort(null);	//sorting the list so that the smallest element is first and the biggest element is last
@@ -31,6 +31,6 @@ public class AOC10 extends AOC{
 				total += (m.containsKey(l.get(i)+j))?m.get(l.get(i)+j):0;	//if such an adapter exists, the possible ways to plug it in are added to the total.
 			m.put(l.get(i), total);	//the total is then added to the map, so that future adapters can use it's value for calculation
 		}	//here I'm closing a bracket
-		println("Task 2: "+m.get(0));	//lastly, we print the possibilities to plug into the outlet. this number equals all possible charger arrangements between outlet and laptop
+		return m.get(0);	//lastly, we print the possibilities to plug into the outlet. this number equals all possible charger arrangements between outlet and laptop
 	}
 }

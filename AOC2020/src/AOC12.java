@@ -1,10 +1,10 @@
 public class AOC12 extends AOC{
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 	
-	static void task1() {
+	static int task1() {
 		char dirTotal = 'E';
 		int[] NESW = new int[4];
 		for(String s: StringArrInput("inputs/input12.txt")) {
@@ -15,10 +15,10 @@ public class AOC12 extends AOC{
 			else 
 				NESW["NESW".indexOf(dir=='F'?dirTotal:dir)] += val;	//otherwise, move ship accordingly
 		}
-		println("Task 1: "+(Math.abs(NESW[0]-NESW[2])+Math.abs(NESW[1]-NESW[3])));
+		return (Math.abs(NESW[0]-NESW[2])+Math.abs(NESW[1]-NESW[3]));
 	}
 	
-	static void task2() {
+	static int task2() {
 		Point shipPos = new Point(0,0),waypoint = new Point(1,10);
 		for(String s: StringArrInput("inputs/input12.txt")) {
 			char dir = s.charAt(0);
@@ -34,6 +34,6 @@ public class AOC12 extends AOC{
 					waypoint.x = (dir=='L'?1:-1)*(waypoint.y-waypoint.x)-(waypoint.y=waypoint.x*(dir=='L'?-1:1)); //waypoint-rotate-one-liner (don't even ask)
 			}
 		}
-		println("Task 2: "+(Math.abs(shipPos.x)+Math.abs(shipPos.y)));
+		return (Math.abs(shipPos.x)+Math.abs(shipPos.y));
 	}
 }

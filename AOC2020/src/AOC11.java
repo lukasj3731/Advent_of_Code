@@ -1,18 +1,18 @@
 public class AOC11 extends AOC{
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 
-	static void task1() {
-		task(false);
+	static int task1() {
+		return task(false);
 	}
 
-	static void task2() {
-		task(true);
+	static int task2() {
+		return task(true);
 	}
 
-	static void task(boolean t2) {
+	static int task(boolean t2) {
 		char[][] prev, curr=charArrInput("inputs/input11.txt");
 		do {
 			prev = curr;
@@ -22,7 +22,7 @@ public class AOC11 extends AOC{
 		for(int i=0;i<curr.length;i++)
 			for(int j=0;j<curr[i].length;j++)
 				count += curr[i][j]=='#'?1:0;	//count taken spaces
-		println("Task "+(t2?2:1)+": "+count);
+		return count;
 	}
 
 	static char[][] iterate(char[][] in, boolean t2) {

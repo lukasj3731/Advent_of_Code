@@ -2,19 +2,19 @@ import java.util.HashMap;
 
 public class AOC19 extends AOC{
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 	
-	static void task1() {
-		task(false);
+	static int task1() {
+		return task(false);
 	}
 	
-	static void task2() {
-		task(true);
+	static int task2() {
+		return task(true);
 	}
 	
-	static void task(boolean t2) {
+	static int task(boolean t2) {
 		String in = StrInput("inputs/input19.txt");
 		HashMap<Integer, String> m = new HashMap<Integer,String>();	//maps [ruleNumber -> ruleSet]
 		for(String rule: in.split("\n\n")[0].split("\n"))
@@ -23,7 +23,7 @@ public class AOC19 extends AOC{
 		int sum = 0;
 		for(String line:in.split("\n\n")[1].split("\n"))	//increment sum if line matches regex
 			sum += line.matches(r)?1:0;
-		println("Task "+(t2?2:1)+": "+sum);
+		return sum;
 	}
 
 	static String getRegex(int rule, HashMap<Integer, String> m, boolean t2) {

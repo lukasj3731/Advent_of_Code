@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class AOC17 extends AOC {
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 
-	static void task1() {
-		task(false);
+	static int task1() {
+		return task(false);
 	}
 
-	static void task2() {
-		task(true);
+	static int task2() {
+		return task(true);
 	}
 
-	static void task(boolean t2) {
+	static int task(boolean t2) {
 		char[][] in = charArrInput("inputs/input17.txt");
 		Map<Point4D, Character> m = new HashMap<Point4D, Character>();
 		List<Point4D> directions = new LinkedList<Point4D>();
@@ -35,7 +35,7 @@ public class AOC17 extends AOC {
 				m.put(new Point4D(i, j, 0, 0), in[i][j]);	//add points from input to map
 		for (int i = 0; i < 6; i++)
 			m = iterate(m, directions);	//iterate 6 times
-		println("Task " + (t2 ? 2 : 1) + ": " + m.size());
+		return m.size();
 	}
 	
 	static Map<Point4D, Character> iterate(Map<Point4D, Character> m, List<Point4D> directions) {

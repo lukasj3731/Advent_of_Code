@@ -1,17 +1,17 @@
 public class AOC04 extends AOC{
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 	
-	static void task1() {
+	static int task1() {
 		int valid = 0;
 		for(String p:StrInput("inputs/input04.txt").split("\n\n"))
 			valid += (p.split("[\n ]").length+(!p.contains("cid")?1:0)==8)?1:0;	//if there are 7 components and no cid or 8 components, it's valid
-		println("Task 1: "+valid);
+		return valid;
 	}
 	
-	static void task2() {
+	static int task2() {
 		int valid = 0;
 		for(String p:StrInput("inputs/input04.txt").split("\n\n")) {
 			boolean c = true;
@@ -19,7 +19,7 @@ public class AOC04 extends AOC{
 				c = isValid(p,regexFinder("([a-z]{3}):",n))?c:false;	//c stays true if component <n> is valid
 			valid += (c&&(p.split("[\n ]").length+(!p.contains("cid")?1:0)==8))?1:0;	//if every component valid and enough components exxist, passport is valid
 		}
-		println("Task 2: "+valid);
+		return valid;
 	}
 
 	private static boolean isValid(String p, String n) {	//returns passport validity concerning component <n>

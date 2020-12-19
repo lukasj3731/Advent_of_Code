@@ -3,19 +3,19 @@ import java.util.Map;
 
 public class AOC14 extends AOC {
 	public static void main(String[] args) {
-		task1();
-		task2();
+		println("Task 1: "+task1());
+		println("Task 2: "+task2());
 	}
 
-	static void task1() {
-		task(false);
+	static long task1() {
+		return task(false);
 	}
 
-	static void task2() {
-		task(true);
+	static long task2() {
+		return task(true);
 	}
 
-	static void task(boolean t2) {
+	static long task(boolean t2) {
 		String mask = "";
 		Map<Long, Long> m = new HashMap<Long, Long>();	//map for [memory address -> value]
 		for (String s : StringArrInput("inputs/input14.txt"))
@@ -32,7 +32,7 @@ public class AOC14 extends AOC {
 		long sum = 0;
 		for (long k : m.values())	//sum all values in map
 			sum += k;
-		println("Task " + (t2 ? 2 : 1) + ": " + sum);
+		return sum;
 	}
 
 	static String mask(long num, String mask, boolean t2) {
