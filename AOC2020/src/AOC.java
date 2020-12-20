@@ -182,6 +182,47 @@ public abstract class AOC {		//helpful methods to save some typing
         return 1; 
 	}
 	
+	static String reverse(String in) {
+		return new StringBuilder(in).reverse().toString();
+	}
+	
+	static char[][] rotate(char[][] tile) {
+		char[][] ret = new char[tile.length][tile.length];
+		for (int i = 0; i < ret.length; ++i) 
+			for (int j = 0; j < ret.length; ++j) 
+				ret[i][j] = tile[ret.length - j - 1][i];
+		return ret;
+	}
+
+	static char[][] flip(char[][] tile) {
+		char[][] ret = new char[tile.length][tile.length];
+		for(int i=0;i<ret.length;i++)
+			for(int j=0;j<ret.length;j++)
+				ret[i][j] = tile[i][ret.length-1-j];
+		return ret;
+	}
+	
+	static int countOccurrence(char[][] search, char[][] find, char positive) {
+		int sum = 0;
+		for(int i=0;i<search.length-find.length;i++) 
+			for(int j=0;j<search[0].length-find[0].length;j++) {
+				boolean fits = true;
+				for(int a=0;a<find.length;a++)
+					for(int b=0;b<find[0].length;b++)
+						fits = (search[i+a][j+b]!= find[a][b] && find[a][b]==positive)?false:fits;
+				sum += fits?1:0;
+			}
+		return sum;
+	}
+	
+	static char[][] StrArrToCharArr(String[] in) {
+		char[][] ret = new char[in.length][in[0].length()];
+		for(int i=0;i<in.length;i++)
+			for(int j=0 ;j<in[0].length();j++)
+				ret[i][j] = in[i].charAt(j);
+		return ret;
+	}
+	
 	static class Point{
 		int x=0;
 		int y=0;
