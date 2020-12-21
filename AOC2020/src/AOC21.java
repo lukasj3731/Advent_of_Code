@@ -2,8 +2,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import javafx.scene.AmbientLight;
-
 public class AOC21 extends AOC {
 	public static void main(String[] args) {
 		println("Task 1: "+task1());
@@ -31,8 +29,7 @@ public class AOC21 extends AOC {
 		for(String safe = ".";!safe.equals("");) {	//loop to remove duplicates until only identifiable ingredients are left
 			safe = "";
 			for(String s:m.keySet())
-				if(m.get(s).size()==1)
-					safe = s+":"+m.get(s).iterator().next();
+				safe = m.get(s).size()==1?s+":"+m.get(s).iterator().next():safe;
 			if(!safe.equals("")) {
 				for(String s:m.keySet())
 					m.get(s).remove(safe.split(":")[1]);
@@ -51,13 +48,9 @@ public class AOC21 extends AOC {
 				total.put(s, total.getOrDefault(s, 0)+1);
 			}
 			for(String a:regexFinder("\\(([^()]+)\\)", l).replaceAll("contains ", "").split(", ")) {	//allergens
-				if(m.containsKey(a)) {
-					HashSet<String> tmp = new HashSet<String>(m.get(a));
-					tmp.retainAll(list);
-					m.put(a, tmp);
-				} else {
-					m.put(a, list);
-				}
+				HashSet<String> tmp = m.getOrDefault(a, new HashSet<String>(list));
+				tmp.retainAll(list);
+				m.put(a, tmp);
 			}
 		}
 	}
