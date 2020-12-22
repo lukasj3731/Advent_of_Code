@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -220,6 +222,16 @@ public abstract class AOC {		//helpful methods to save some typing
 		for(int i=0;i<in.length;i++)
 			for(int j=0 ;j<in[0].length();j++)
 				ret[i][j] = in[i].charAt(j);
+		return ret;
+	}
+	
+	static Queue<Integer> takeN(Queue<Integer> q, int n) {
+		Queue<Integer> ret = new LinkedList<Integer>();
+		for(int i=0;i<q.size();i++) {	//copy sub-queue for sub game for player 1...
+			if(ret.size()<n)
+				ret.add(q.peek());
+			q.add(q.poll());
+		}
 		return ret;
 	}
 	

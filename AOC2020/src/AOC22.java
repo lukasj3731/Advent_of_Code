@@ -29,28 +29,13 @@ public class AOC22 extends AOC{
 	
 	static long game(Queue<Integer> p1, Queue<Integer> p2, boolean t2) {	//returns score of winner, positive is player1 wins, negative is player2 wins
 		HashSet<String> rep = new HashSet<String>();	//set of repetitions
-		while(p1.size()>0 && p2.size()>0) {
+		while(p1.size()*p2.size()>0) {
 			String state = p1.toString()+"|"+p2.toString();
 			if(rep.contains(state))	//return 1 if repetition occurs
 				return 1;
 			rep.add(state);	//else save the repetition
 			int c1 = p1.poll(),c2 = p2.poll();	//draw top card
-			boolean p1won=c1>c2;
-			if(!(c1>p1.size() || c2>p2.size() || !t2)) {	//for task 2: if necessary, enter sub game
-				Queue<Integer> s1 = new LinkedList<Integer>(),s2 = new LinkedList<Integer>();
-				for(int i=0;i<p1.size();i++) {	//copy sub-queue for sub game for player 1...
-					if(s1.size()<c1)
-						s1.add(p1.peek());
-					p1.add(p1.poll());
-				}
-				for(int i=0;i<p2.size();i++) {	//...and player 2
-					if(s2.size()<c2)
-						s2.add(p2.peek());
-					p2.add(p2.poll());
-				}
-				p1won = game(s1, s2,t2)>0;	//play subgame
-			}
-			if(p1won) {	//depending on who won, give cards to winner
+			if((c1>p1.size()||c2>p2.size()||!t2)?c1>c2:game(takeN(p1,c1),takeN(p2,c2),t2)>0) {	//depending on who won, give cards to winner
 				p1.add(c1);
 				p1.add(c2);
 			} else {
