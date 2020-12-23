@@ -6,7 +6,7 @@ public class AOC23 extends AOC{
 		println("Task 2: "+task2());
 	}
 	
-	static void iterate(int[] map, int curr ,int iterations) {
+	static int[] iterate(int[] map, int curr ,int iterations) {
 		for(int i=0;i<iterations;i++) {	//for number of iterations
 			int group = map[curr];	//get group to be displaced
 			map[curr] = map[map[map[group]]];	//unlink group from ring
@@ -23,6 +23,7 @@ public class AOC23 extends AOC{
 			map[goal] = group;	//insert group after goal
 			curr = map[curr];	//go to next
 		}
+		return map;
 	}
 	
 	static int[] generateMap(boolean t2,int[] in) {
@@ -30,7 +31,7 @@ public class AOC23 extends AOC{
 		if(t2) {	//for task 2: add 1000000 numbers all linked to each other
 			for(int i=1000000;i>in.length;i--)
 				map[i] = i+1;
-			map[in[in.length-1]] = in.length+1;	//link highest node to null or already inserted node
+			map[in[in.length-1]] = in.length+1;	//link highest node to 0 or already inserted node
 		}
 		for(int i=in.length-2;i>=0;i--)
 			map[in[i]] = in[i+1];	//add input nodes linked to each other
@@ -40,8 +41,7 @@ public class AOC23 extends AOC{
 
 	static String task1() {
 		int[] in = Arrays.stream(StrInput("inputs/input23.txt").split("")).mapToInt(Integer::parseInt).toArray();
-		int[] map = generateMap(false, in);
-		iterate(map,in[0],100);	//iterate 100 times
+		int[] map = iterate(generateMap(false, in),in[0],100);	//iterate 100 times
 		String ret="";
 		int curr = 1;	//get item 1
 		do {
@@ -52,8 +52,7 @@ public class AOC23 extends AOC{
 	
 	static long task2() {
 		int[] in = Arrays.stream(StrInput("inputs/input23.txt").split("")).mapToInt(Integer::parseInt).toArray();
-		int[] map = generateMap(true, in);
-		iterate(map,in[0],10000000);
+		int[] map = iterate(generateMap(true, in),in[0],10000000);
 		return 1l*map[1]*map[map[1]];	//multiply numbers following the '1'
 	}
 }
