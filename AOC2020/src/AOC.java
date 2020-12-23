@@ -304,14 +304,4 @@ public abstract class AOC {		//helpful methods to save some typing
 			return (x+","+y+","+z+","+t).hashCode();
 		}
 	}
-	
-	static class RingNode {
-		int val = 0;
-		RingNode next;
-		
-		public RingNode(int val, RingNode next) {
-			this.val = val;
-			this.next = next;
-		}
-	}
 }
