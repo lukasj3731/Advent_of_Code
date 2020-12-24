@@ -46,7 +46,7 @@ public class AOC23 extends AOC{
 		int curr = 1;	//get item 1
 		do {
 			ret += (curr=map[curr]);	//add numbers following node '1' to return String till '1' is reached again
-		} while(map[curr]!=map[1]);
+		} while(map[curr]!=1);
 		return ret;
 	}
 	
