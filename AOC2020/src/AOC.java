@@ -273,6 +273,14 @@ public abstract class AOC {		//helpful methods to save some typing
 		public String toString() {
 			return "["+x+","+y+","+z+"]";
 		}
+		
+		public boolean equals(Object o) {
+			return o.toString().equals(this.toString());
+		}
+		
+		public int hashCode() {
+			return this.toString().hashCode();
+		}
 	}
 	
 	static class Point4D {
