@@ -14,10 +14,10 @@ Task 2: <solution 2>
 but some won't cause I was too lazy to extract the solution as text. all solutions will still be human readable though.
 
 ## 2020
-Second year, this time I'm using regular java. I'm kinda having a go at Codegolf, although I still use semi-readable names and spacing. The class AOC is full of helper methods that I thought would be generally useful, and the AOC `main()` will run every day and print the solution if possible.
+Second year, this time I'm using regular java. I'm kinda having a go at Codegolf, although I still use semi-readable names and spacing. The class AOC is full of helper methods that I thought would be generally useful, and the AOC `main()` will run every day and print the solution.
 Puzzle inputs are stored at `inputs/input<day>.txt`
-As last year, most puzzles will be solved like this:
+As last year, all puzzles will be solved like this:
 ```
-Task 1: <solution>
-Task 2: <solution>
+Task 1: <solution 1>
+Task 2: <solution 2>
 ```
