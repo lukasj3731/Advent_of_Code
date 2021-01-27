@@ -74,15 +74,25 @@ for i in range(0, len(tracks)):
 
 noCollision = True
 
-while noCollision:
+task1 = ''
+while len(carts) > 1:
     parking = []
     carts.sort()
-    for i in range(0, len(carts)):
+    while len(carts) > 0:
         cart = carts.pop(0)
         cart.move(tracks)
         if any(c.diff(cart) == 0 for c in carts + parking):
-            print(cart)
-            noCollision = False
-        parking.append(cart)
+            for c in carts + parking:
+                if cart.diff(c) == 0:
+                    if carts.__contains__(c):
+                        carts.remove(c)
+                    else:
+                        parking.remove(c)
+            if task1 == '':
+                task1 = str(cart)
+        else:
+            parking.append(cart)
     carts = parking
+print('task 1:', task1)
+print('task 2:', carts[0])
 
