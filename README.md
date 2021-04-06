@@ -21,3 +21,17 @@ As last year, all puzzles will be solved like this:
 Task 1: <solution 1>
 Task 2: <solution 2>
 ```
+
+### 2018
+I'm trying to learn python! I'm just getting started, so don't expenct a lot. every day is it's own python program, named ```day<day>.py```in the ```src``` folder. All inputs are in the ```inputs``` folder. Every day prints the solution like this:
+```
+Task 1: <solution 1>
+Task 2: <solution 2>
+```
+
+### 2017
+Still improving at python! This year I've structured everything a bit different, which makes reading in puts a lot cleaner. input files are still in the ```inputs``` folder. Instead of having to start each day manually (like my solution for 2018), the ```main.py``` takes care of everything by calling the function ```solve<day>()``` in every corresponding ```day<day>.py```. Outputs are printed as:
+```
+task 1: <solution 1>
+task 2: <solution 2>
+```
