@@ -5,5 +5,5 @@ def solve_captcha(captcha, offset):
 
 def solve01():
     captcha = open('inputs/day01.txt').read()
-    print('task 1:', solve_captcha(captcha, 1))
-    print('task 2:', solve_captcha(captcha, len(captcha)//2))
+    print('Task 1:', solve_captcha(captcha, 1))
+    print('Task 2:', solve_captcha(captcha, len(captcha)//2))

@@ -11,5 +11,5 @@ def solve04():
     for phrase in phrases:
         sum0 += phrase_valid(phrase, 1)
         sum1 += phrase_valid(phrase, 2)
-    print('task1:', sum0)
-    print('task2:', sum1)
+    print('Task 1:', sum0)
+    print('Task 2:', sum1)

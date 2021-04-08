@@ -15,5 +15,5 @@ def execute(instructions, mode):
 
 def solve05():
     instructions = [int(x) for x in open('inputs/day05.txt').read().split('\n')]
-    print('task1:', execute(instructions.copy(), 1))
-    print('task2:', execute(instructions, 2))
+    print('Task 1:', execute(instructions.copy(), 1))
+    print('Task 2:', execute(instructions, 2))

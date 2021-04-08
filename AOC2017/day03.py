@@ -35,5 +35,5 @@ def sum_t(t1, t2):
 
 def solve03():
     number = int(open('inputs/day03.txt').read())
-    print('task1:', hamming_dist(number))
-    print('task2:', fillGrid(number))
+    print('Task 1:', hamming_dist(number))
+    print('Task 2:', fillGrid(number))

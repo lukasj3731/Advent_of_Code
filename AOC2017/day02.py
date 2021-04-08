@@ -5,8 +5,8 @@ def solve02():
         numbers = [int(x) for x in line.split('\t')]
         checksum1 += max(numbers)-min(numbers)
         checksum2 += int(division_line(numbers))
-    print('task 1:', checksum1)
-    print('task 2:', checksum2)
+    print('Task 1:', checksum1)
+    print('Task 2:', checksum2)
 
 
 def division_line(numbers):
