@@ -23,6 +23,15 @@ def dist(particle):
     return abs(particle[0][0])+abs(particle[0][1])+abs(particle[0][2])
 
 
+def remove_collided(particles):
+    positions = dict()
+    for particle in particles:
+        positions[particle[0]] = positions.get(particle[0], 0) + 1
+    for particle in particles.copy():
+        if positions[particle[0]] > 1:
+            particles.remove(particle)
+
+
 def solve20():
     particles = []
     for line in open('inputs/day20.txt').read().split('\n'):
@@ -38,3 +47,12 @@ def solve20():
             min_dist = d
             particle_id = i
     print(particle_id)
+
+    particles = []
+    for line in open('inputs/day20.txt').read().split('\n'):
+        particles.append(make_particle(line))
+    for iterations in range(5000):
+        for i in range(len(particles)):
+            particles[i] = iterate(particles[i])
+        remove_collided(particles)
+    print(len(particles))
