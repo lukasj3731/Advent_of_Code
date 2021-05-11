@@ -15,7 +15,7 @@ def solve23():
     instructions = [get_instr(asm_code) for asm_code in open('inputs/day23.txt').read().split('\n')]
     while index < len(instructions):
         exec(instructions[index], globals())
-    print(multiplications)
+    print('Task 1:', multiplications)
 
     b = 99 * 100 + 100000   # thx to https://www.reddit.com/user/jonathan_paulson/ for the following, cause there is
     c = b + 17000           # nothing i hate more than decompiling assembly code
@@ -35,4 +35,4 @@ def solve23():
         if b == c:
             break
         b += 17
-    print(ans)
+    print('Task 2:', ans)

@@ -46,7 +46,7 @@ def solve20():
         if d < min_dist:
             min_dist = d
             particle_id = i
-    print(particle_id)
+    print('Task 1:', particle_id)
 
     particles = []
     for line in open('inputs/day20.txt').read().split('\n'):
@@ -55,4 +55,4 @@ def solve20():
         for i in range(len(particles)):
             particles[i] = iterate(particles[i])
         remove_collided(particles)
-    print(len(particles))
+    print('Task 2:', len(particles))

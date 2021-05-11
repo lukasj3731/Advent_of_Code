@@ -3,7 +3,6 @@ import re
 
 def solve25():
     file = open('inputs/day25.txt').read().split('\n\n')
-    print(file)
     begin_state = file[0].split(' ')[3][0]
     iterations = int(re.findall('[0-9]+', file[0])[0])
     nxt = dict()
