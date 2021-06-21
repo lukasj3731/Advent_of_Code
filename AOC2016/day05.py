@@ -17,6 +17,7 @@ def solve05():
     print('Task 2: ', end='')
     for i in range(8):
         print(ret2[str(i)], end='')
+    print()
 
 
 def hash_md5(input):
