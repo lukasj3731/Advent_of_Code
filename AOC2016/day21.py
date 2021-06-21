@@ -35,7 +35,6 @@ def scramble(instructions, password):
 
 
 def solve21():
-    print('hi')
     instructions = open('inputs/day21.txt').read().split('\n')
     print('Task 1:', scramble(instructions, 'abcdefgh'))
     for password in list(itertools.permutations('abcdefgh')):
